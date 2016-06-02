@@ -22,7 +22,7 @@
           <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
         </button>
         <!-- ZAČETEK: Ime vaše aplikacije -->
-        <a class="navbar-brand" href="index.html">{ime vaše aplikacije}</a>
+        <a class="navbar-brand" href="index.html">Katalog Strank</a>
         <!-- KONEC: Ime vaše aplikacije -->
       </div>
       <div class="collapse navbar-collapse" id="menujska-vrstica">
@@ -45,7 +45,17 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Opis ideje, ki jo aplikacija podpira -->
-            <p><strong>TO-DO</strong>: Na tem mestu je potrebno dodati <strong>osnovni opis ideje rešitve</strong> (kakšen je osnovni SCENARIJ UPORABE, KDO je ciljna publika, za kakšen NAMEN se aplikacija uporablja).</p><p class="text-muted">Opis naj ne bo daljši od 200 besed.</p>
+            <p align="left"><strong>Ideja in namen aplikacije</strong></p>
+            <p align="left">Podjetja, ki delajo z velikim številom strank imajo ponavadi v svojih CRM sistemih implementiran sistem rangiranja obstoječih in potencijalnih strank na osnovi več kazalcev iz obstoječih podatkov o stranki (redno plačevanje računov, velikost prometa ki ga ustvari stranka in podobno). 
+            Na osnovi tega se izračuna rang ali rating stranke, ki agentu takoj pade v oči ko se mu stranka odpre v CRM-ju (stranka je v odvisnosti od svojega ratinga pobarvana različno (zeleno, oranžno, rdeče...). 
+            Enak sistem ratinga bi lahko implementirali v zdravstvenih zavarovalnicah, ki imajo dostop do podatkov iz EHR obstoječih ali potencialnih strank. 
+            Na osnovi zgodovine njihovih meritev, starosti, fizični aktivnosti strank in tudi zunanjih statističnih podatkih bi lahko naredili tovrstni sistem za rangiranje strank. 
+            V tej aplikaciji je za potrebe demonstracije imlementiran rating na osnovi samo enega podatka o stranki in enega zunanjega vira, v praksi pa bi postopek rangiranja bil veliko bolj kompleksen.</p>
+            <p align="left"><strong>Ciljna publika</strong></p>
+            <p align="left"> Ciljna publika so zavarovalnice, ki sklepajo zavarovanja na področju zdravstva</p>
+            <p align="left"><strong>Scenarij uporabe</strong></p>
+            <p align="left"> Stranka pokliče svojo zdravstveno zavarovalnico, da bi se pozanimala o spremembi obstoječega ali o dodatnem zavarovanju. 
+            Agentu v zavarovalnici se v internem CRM sistemu takoj odprjo podatki o stranki. Brez posebnega poglabljanja v strankine podatke, agent že na osnovi indikatorja strankinega ratinga ima predstavo s kakšnim tipom stranke se pogovarja.</p>
             <!-- KONEC: Opis ideje, ki jo aplikacija podpira -->
           </div>
         </div>
@@ -55,7 +65,12 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
-            <p><strong>TO-DO</strong>: Na tem mestu je navesti zunanji vir podatkov (URL naslov), na kakšen način ste ga uporabili (neposredni API klic, uvožena statična datoteka ipd.) in kaj je bil namen uporabe (kako se vključuje v osnovno idejo aplikacije).</p>
+            <p align="left">Pri izdelavi ratinga stranke za potrebe trženja zavarovalniških produktov bi veliko vlogo igrala pričakovana življenska doba stranke. 
+            V ta namen so podatki o pričakovanem trajanju življenja po spolu v Sloveniji bili pridobljeni iz spletnih strani Statističnega urada RS. 
+            Pridobljeni podatki so bili prilagojeni za uporabo v aplikaciji, ter uvoženi v aplikacijo iz statične json datoteke. 
+            Vzeti so bili podatki za leto 2014 (zadnje leto, ki je bilo na voljo v času izdelave demo aplikacije).</p>
+            <p align="left"><strong>URL naslov vira:</strong></p>
+            <p align="left"><a href="http://pxweb.stat.si/pxweb/Dialog/varval.asp?ma=05L4002S&ti=&path=../Database/Dem_soc/05_prebivalstvo/32_Umrljivost/20_05L40-trajanje-zivlj/&lang=2" target="_blank">http://pxweb.stat.si/pxweb/Dialog/varval.asp?ma=05L4002S&ti=&path=../Database/Dem_soc/05_prebivalstvo/32_Umrljivost/20_05L40-trajanje-zivlj/&lang=2</a> </p>
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
           </div>
         </div>
@@ -75,7 +90,10 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
-            <p><strong>TO-DO</strong>: Na tem mestu je potrebno navesti uporabljeno tehniko vizualizacije podatkov (za pomoč lahko uporabite primer iz <a href="https://github.com/mbostock/d3/wiki/Gallery" target="_blank">D3.js galerije</a>) in zakaj je bila ta tehnika izbrana.</p>
+            <p align="left">Za vizualizacijo indikatorja ratinga stranke je potrebno uporabiti element, ki bo zelo enostaven, ne zavzame veliko prostora na strani, se mu da nastavljati pravladajočo barvo in ki takoj pade v oči. 
+            Omogočal naj bi opcijsko še zelo berljiv prikaz številke ratinga, če kot rezultat ratinga poleg barve dobimo tudi številko. 
+            Po pregledu različnih tehnik vizualizacije je na koncu bil izbrana prilagojena oblika gradnika Liquid Fill Gauge. 
+            Primere uporabe in kodo lahko najdemo na povezavi:<a href="http://bl.ocks.org/brattonc/5e5ce9beee483220e2f6" target="_blank"> D3 Liquid Fill Gauge</a>.</p>
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
           </div>
         </div>
