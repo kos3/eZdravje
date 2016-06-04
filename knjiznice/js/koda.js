@@ -162,7 +162,7 @@ $(document).ready(function() {
 });
 
 function readJsonData(){
-    $.getJSON( "../life_expect.json", function( data ) {
+    $.getJSON( "./life_expect.json", function( data ) {
       $.each(data, function( key, val ) {
         ageTable.push(val);
       });
@@ -276,8 +276,8 @@ function preberiEHRodBolnika() {
 				var dateOfBirth = party.dateOfBirth.split('T');
 				
 				$("#preberiSporocilo").html("<span class='obvestilo label " +
-                "label-success fade-in'>Bolnik '" + party.firstNames + " " +
-                party.lastNames + "', spol: "+ party.gender +", ki se je rodil '" + dateOfBirth[0] +
+                "label-success fade-in'>Stranka '" + party.firstNames + " " +
+                party.lastNames + "', spol: "+ party.gender +", ki se je rodila '" + dateOfBirth[0] +
                 "'.</span>");
                 graphCalculator(party.dateOfBirth);
                 
