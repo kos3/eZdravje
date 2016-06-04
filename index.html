@@ -9,6 +9,8 @@
   </style>
   <script src="knjiznice/js/jquery-2.2.3.min.js"></script>
   <script src="knjiznice/js/bootstrap.min.js"></script>
+  <script src="knjiznice/js/d3.v3.min.js" language="JavaScript"></script>
+  <script src="knjiznice/js/liquidFillGauge.js"></script>
   <script src="knjiznice/js/koda.js"></script>
 </head>
 <body>
@@ -29,7 +31,7 @@
         <ul class="nav navbar-nav">
           <li><a href="opis.html">Opis ideje</a></li>
           <li><a href="nacrt.html">Načrt informacijske rešitve</a></li>
-          <li><a href="#">Generiranje podatkov</a></li>
+          <li><a href="#" id="btnGenerator">Generiranje podatkov</a></li>
         </ul>
       </div>
     </div>
@@ -39,12 +41,138 @@
   <!-- ZAČETEK: Vsebina aplikacije -->
   <div class="container">
     <div class="row">
-      <div class="col-lg-12 text-center">
-        <p class="lead"><strong>TO-DO</strong>: Na tem mestu implementirajte vašo aplikacijo.</p>
-      </div>
-    </div>
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-lg-8 col-md-8 col-sm-8"><b>Kreiraj stranko</b></div>
+							<div class="col-lg-4 col-md-4 col-sm-4">
+							  <select class="form-control input-sm" id="preberiPredlogoBolnika">
+							    <option value=""></option>
+							    <option value="Testna,Stranka,1945-05-09,M">Testna Stranka</option>
+							  </select>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<span class="label label-default">Ime</span><input id="kreirajIme" type="text" class="form-control input-mini" placeholder="Ime" required="required">
+						<span class="label label-default">Priimek</span><input id="kreirajPriimek" type="text" class="form-control" placeholder="Priimek" required="required">
+						<span class="label label-default">Datum rojstva</span><input id="kreirajDatumRojstva" type="text" class="form-control" placeholder="yyyy-mm-dd" required="required">
+						<span class="label label-default">Spol</span>
+						  <select class="form-control input-sm" id="kreirajSpol" required="required">
+						    <option value=""></option>
+						    <option value="M">Moški</option>
+						    <option value="F">Ženska</option>
+						  </select>
+						<br/>
+						<button type="button" class="btn btn-primary btn-xs" onclick="kreirajEHRzaBolnika()">Dodaj osnovne podatke o stranki</button>
+						<span id="kreirajSporocilo"></span>
+				  </div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-lg-8 col-md-8 col-sm-8"><b>Preberi stranko</b></div>
+							<div class="col-lg-4 col-md-4 col-sm-4">
+							  <select class="form-control input-sm" id="preberiObstojeciEHR">
+							    <option value=""></option>
+							    <!--<option value="e24382ab-b5dd-4e5d-9d02-20b32fec69b7">Igor Kos</option>
+							    <option value="49dcf499-9cb6-4d61-b411-47ec12ab8b6c">1. Testna Stranka</option>
+							    <option value="c6374843-c57c-4694-a4b2-c0d2f7b06833">2. Testna Stranka</option>-->
+							  </select>
+						  </div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<span class="label label-default">EHR ID</span><input id="preberiEHRid" type="text" class="form-control input-mini" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
+						
+						<button type="button" class="btn btn-primary btn-xs" onclick="preberiEHRodBolnika()">Preberi osnovne podatke o stranki</button><span id="preberiSporocilo"></span>
+				  	</div>
+				</div>
+			</div>
+			
+			<!-- GRAF -->
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<b>Rating stranke</b>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-6 col-md-6 col-sm-6" style="text-align:right;">
+								<svg id="fillgauge" width="79" height="80"></svg>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6">
+								<strong>Ime: </strong> <span id='lblIme'>&nbsp;</span><br/>
+								<strong>Priimek: </strong> <span id='lblPriimek'>&nbsp;</span><br/>
+								<strong>Datum rojstva: </strong> <span id='lblDatumRojstva'>&nbsp;</span><br/>
+								<strong>Spol: </strong> <span id='lblSpol'>&nbsp;</span>
+							</div>
+						</div>
+				  </div>
+				</div>
+			</div>
+			</div>
+			  
+			<div class="row">
+			  <!-- Meritve vpis -->
+			  <div class="col-lg-6 col-md-6 col-sm-6">
+  				<div class="panel panel-default">
+  					<div class="panel-heading">
+  						<div class="row">
+  							<div class="col-lg-8 col-md-8 col-sm-8"><b>Vnos meritve vitalnih znakov stranke</b></div>
+  							<div class="col-lg-4 col-md-4 col-sm-4">
+  								<select class="form-control input-sm" id="preberiObstojeciVitalniZnak">
+	  								<option value=""></option>
+	  								<!--<option value="e24382ab-b5dd-4e5d-9d02-20b32fec69b7|2016-06-03T12:00Z|183|92.0|36.50|118|92|98|Smrketa">Igor Kos</option>-->
+  								</select>
+  							</div>
+  						</div>
+  					</div>
+  					<div class="panel-body">
+  						<span class="label label-default">EHR ID</span><input id="dodajVitalnoEHR" type="text" class="form-control input-mini" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
+  						<span class="label label-default">Datum in ura</span><input id="dodajVitalnoDatumInUra" type="text" class="form-control input-mini" placeholder="yyyy-mm-ddThh:mm">
+  						<span class="label label-default">Telesna višina</span><div class="input-group"><input id="dodajVitalnoTelesnaVisina" type="text" class="form-control input-mini" placeholder=""><span class="input-group-addon">cm</span></div>
+  						<span class="label label-default">Telesna teža</span><div class="input-group"><input id="dodajVitalnoTelesnaTeza" type="text" class="form-control input-mini" placeholder=""><span class="input-group-addon">kg</span></div>
+  						<br/>
+  						<button type="button" class="btn btn-primary btn-xs" onclick="dodajMeritveVitalnihZnakov()">Dodaj meritve vitalnih znakov</button><span id="dodajMeritveVitalnihZnakovSporocilo"></span>
+  				  	</div>
+  				</div>
+			</div>
+			  
+			<!-- Meritve izpis -->  
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-lg-8 col-md-8 col-sm-8"><b>Pregled podatkov meritev za stranko</b></div>
+							<div class="col-lg-4 col-md-4 col-sm-4">
+								<select class="form-control input-sm" id="preberiTipZaVitalneZnake">
+									<option value="telesna teža">Teža</option>
+									<option value="telesna višina">Višina</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<span class="label label-default">EHR ID</span><input id="meritveVitalnihZnakovEHRid" type="text" class="form-control input-mini" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
+						<br/>
+						<button type="button" class="btn btn-primary btn-xs" onclick="preberiMeritveVitalnihZnakov()">Preberi meritve vitalnih znakov</button><span id="preberiMeritveVitalnihZnakovSporocilo"></span>
+						<div id="rezultatMeritveVitalnihZnakov"></div>
+				  	</div>
+				</div>
+			</div>
+		
   </div>
   <!-- KONEC: Vsebina aplikacije -->
 
 </body>
 </html>
+
+<style>
+	.navbar-inverse .navbar-brand {
+    color: #f1f1f1;
+	}
+</style>
