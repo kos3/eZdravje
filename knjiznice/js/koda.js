@@ -89,8 +89,6 @@ function generirajPodatke(stPacienta, callback) {
     ehrId = addEHRService(patients[i][0], patients[i][1], patients[i][2], patients[i][3], array, function(ehrId){
     	callback(ehrId);
     });
-    
-    //return ehrId;
 }
 
 var ageTable = [];
@@ -181,7 +179,7 @@ $(document).ready(function() {
 	readJsonData();
 });
 
-function readJsonData(){
+function readJsonData() {
     $.getJSON( "./life_expect.json", function( data ) {
       $.each(data, function( key, val ) {
         ageTable.push(val);
@@ -401,9 +399,7 @@ function preberiMeritveVitalnihZnakov() {
 				$("#rezultatMeritveVitalnihZnakov").html("<br/><span>Pridobivanje podatkov za <b>'" + 
 														 tip + "'</b> stranke <b>'" + party.firstNames +
         												 " " + party.lastNames + "'</b>.</span><br/><br/>");
-        		//var filter = dateCalculator()
-        		
-        												 
+
 				if (tip == "telesna teža") {
 					$.ajax({
 					    url: baseUrl + "/view/" + ehrId + "/" + "weight",
@@ -411,7 +407,7 @@ function preberiMeritveVitalnihZnakov() {
 					    headers: {"Ehr-Session": sessionId},
 					    success: function (res) {
 					    	if (res.length > 0) {
-						    	var results = "<table class='table table-striped table-hover'><tr><th>Datum in ura</th><th class='text-right'>Telesna teža</th></tr>";
+						    	var results = "<table class='table table-striped table-hover'><tr><th>Datum</th><th class='text-right'>Telesna teža</th></tr>";
 						        for (var i in res) {
 						            var time = res[i].time.split('T');
 						            
@@ -462,7 +458,7 @@ function preberiMeritveVitalnihZnakov() {
 
 var config = liquidFillGaugeDefaultSettings();
 var gauge;
-function graphConfig(){
+function graphConfig() {
     config.circleThickness = 0.4;
     config.circleColor = "#6DA398";
     config.textColor = "#178BCA";
@@ -476,7 +472,7 @@ function graphConfig(){
     config.waveOffset = 0.25;
     config.textSize = 1.2;
     config.minValue = 0;
-    config.maxValue = 150
+    config.maxValue = 150;
     config.displayPercent = false;
     gauge = loadLiquidFillGauge("fillgauge", 0, config);
 }
@@ -544,7 +540,7 @@ function getDateDiff(date1, date2, interval) {
 }
 
 
-function readAgeTableData(age){
+function readAgeTableData(age) {
     var item;
     $.each(ageTable, function( key, val ) {
     
@@ -557,11 +553,11 @@ function readAgeTableData(age){
     return item;
 }
 
-function getFilter(){
+function getFilter() {
 	return $("#rbTen").hasClass("active") ? "TEN" : $("#rbOne").hasClass("active") ? "ONE" : "ALL";
 }
 
-function dateCalculator(){
+function dateCalculator() {
 	var filter = getFilter();
 	
 	// Return today's date and time
