@@ -48,14 +48,15 @@
             <p align="left"><strong>Ideja in namen aplikacije</strong></p>
             <p align="left">Podjetja, ki delajo z velikim številom strank imajo ponavadi v svojih CRM sistemih implementiran sistem rangiranja obstoječih in potencijalnih strank na osnovi več kazalcev iz obstoječih podatkov o stranki (redno plačevanje računov, velikost prometa ki ga ustvari stranka in podobno). 
             Na osnovi tega se izračuna rang ali rating stranke, ki agentu takoj pade v oči ko se mu stranka odpre v CRM-ju (stranka je v odvisnosti od svojega ratinga pobarvana različno (zeleno, oranžno, rdeče...). 
-            Enak sistem ratinga bi lahko implementirali v zdravstvenih zavarovalnicah, ki imajo dostop do podatkov iz EHR obstoječih ali potencialnih strank. 
-            Na osnovi zgodovine njihovih meritev, starosti, fizični aktivnosti strank in tudi zunanjih statističnih podatkih bi lahko naredili tovrstni sistem za rangiranje strank. 
-            V tej aplikaciji je za potrebe demonstracije imlementiran rating na osnovi samo enega podatka o stranki in enega zunanjega vira, v praksi pa bi postopek rangiranja bil veliko bolj kompleksen.</p>
+            Podoben sistem ratinga bi lahko implementirali v zdravstvenih zavarovalnicah, ki imajo dostop do podatkov iz EHR obstoječih ali potencialnih strank. 
+            Podatke iz EHR svojih strank, do katerih imajo dostop, bi lahko integrirali v svoj CRM sistem, ter na osnovi zgodovine njihovih meritev, starosti, BMI, fizični aktivnosti strank in tudi zunanjih statističnih podatkih bi lahko naredili tovrstni sistem za rangiranje strank. 
+            V tej aplikaciji je za potrebe demonstracije implementiran rating na osnovi samo enega podatka o stranki in enega zunanjega statističnega vira, v praksi pa bi postopek rangiranja bil veliko bolj kompleksen in bi lahko vključeval še meritve določenih vitalnih znakov.</p>
             <p align="left"><strong>Ciljna publika</strong></p>
             <p align="left"> Ciljna publika so zavarovalnice, ki sklepajo zavarovanja na področju zdravstva</p>
             <p align="left"><strong>Scenarij uporabe</strong></p>
             <p align="left"> Stranka pokliče svojo zdravstveno zavarovalnico, da bi se pozanimala o spremembi obstoječega ali o dodatnem zavarovanju. 
-            Agentu v zavarovalnici se v internem CRM sistemu takoj odprjo podatki o stranki. Brez posebnega poglabljanja v strankine podatke, agent že na osnovi indikatorja strankinega ratinga ima predstavo s kakšnim tipom stranke se pogovarja.</p>
+            Agentu v zavarovalnici se v internem CRM sistemu takoj odprjo podatki o stranki. Brez posebnega poglabljanja v strankine podatke, agent že na osnovi indikatorja strankinega ratinga ima predstavo s kakšnim tipom stranke se pogovarja. 
+            Strankine podatke o vitalnih znakih lahko po želji omejuje na določeno obdobje. Na ta način agent takoj ve kateri so primerni zavarovalniški produkti, ki jih lahko tej stranki ponudi. </p>
             <!-- KONEC: Opis ideje, ki jo aplikacija podpira -->
           </div>
         </div>
@@ -80,7 +81,18 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Master/detail načrtovalski vzorec -->
-            <p><strong>TO-DO</strong>: Na tem mestu morate navesti uporabljen master/detail načrtovalski vzorec in na kakšen način ga nameravate uporabiti.</p>
+            <p align="left">Master/detail vzorec naj bi po zahtevah naloge bila <strong>funkcionalnost, ko uporabnik izbere določeno vrednost iz seznama, se naj posodobi množica odvisnih podatkov</strong>. </p>
+            <p align="left">V forumih je profesor podal še dodatna pojasnila: <br>
+            - Master-detail načrtovalski vzorec prikazuje glavni (master) seznam in podrobnosti (detail) izbranega elementa. <br>
+            - Vzorec se uporablja takrat, ko imamo preveliko količino podatkov, da bi jo naenkrat prikazali na strani. <br>
+            - Master je lahko v obliki obrazca, seznama ali drevesne strukture, medtem ko je lahko tudi detail v obliki obrazca, seznama ali drevesa in se ponavadi nahaja pod ali poleg master dela. <br>
+            - Vedno morate razmišljati, da se pri izbiri 1 master vrednosti prikaže več detail vrednosti, odvisnih od master vrednosti. Če to velja, potem je OK. </p>
+            <p align="left">Prvotno sem mislil, da bom zahtevo po master/detail vzorcu zadovoljil s tem, da bom implementiral vodenje seznama vseh generiranih in ročno dodanih strank, ki bi ga hranili oz. ažurirali v izvlečnih seznamih in bi ob izbiri/spremembi izbrane stranke na izvlečnem seznamu osvežil vsebino odvisnih tekstualnih ali vizualnih elementov v sosednjih delih aplikacije (recimo delu z meritvami, delu z grafom, delu kjer se prikazujejo osnovni podatki o osebi...). 
+            V diskusiji na forumu sem od profesorja dobil odgovor, da tovrstna implementacija ne bo zadovoljila pogoja za uporabo master/detail vzorca. <br>
+            Predlagal je naj poskusim implementirati master/detail vzorec na način da bi master bil neko časovno obdobje (npr. zadnji mesec, zadnje leto, zadnjih 5 let, zadnjih 20 let, celotno obdobje ipd.). 
+            Na podlagi te izbire obdobja bi se potem filtriral detail del (npr. en del podatkov vitalnih znakov, ki ustrezajo temu filtru). 
+            Smiselna vključitev te ideje v obstoječo aplikacijo bi tako bila, da bi lahko agent zavarovalnice glede priporočila in nadaljnje obravnave stranke odločal na osnovi podatkov iz izbranega časovnega obdobja. <br>
+            V skladu s predlogom, sem potem na ta način implementiral vzorec master/detail, tako da sedaj uporabnik aplikacije lahko podatke vitalnih znakov lahko filtrira z izbiro obdobja, ki ga pri določeni stranki zanima.</p>
             <!-- KONEC: Master/detail načrtovalski vzorec -->
           </div>
         </div>

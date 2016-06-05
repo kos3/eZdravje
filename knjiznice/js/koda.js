@@ -300,7 +300,7 @@ function preberiEHRodBolnika() {
                 "label-success fade-in'>Stranka '" + party.firstNames + " " +
                 party.lastNames + "', spol: "+ party.gender +", ki se je rodila '" + dateOfBirth[0] +
                 "'.</span>");
-                graphCalculator(party.dateOfBirth);
+                graphCalculator(party.dateOfBirth, party.gender);
                 
                 $('#lblIme').html(party.firstNames);
                 $('#lblPriimek').html(party.lastNames);
