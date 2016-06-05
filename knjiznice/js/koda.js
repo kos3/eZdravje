@@ -26,29 +26,44 @@ var patients = [["Janez", "Dedek", "1935-07-11", "M", "ehrid"],
                 ["Nina", "Mama", "1973-11-11", "F", "ehrid"],
                 ["Jure", "Otrok", "2003-10-30", "M", "ehrid"]];
                 
-var vitalSigns_patient1 = [["2016-04-20T20:11:23+01:00", 166, 81.9],
-                           ["2016-04-27T18:28:58+01:00", 166, 80.5],
-                           ["2016-05-04T17:59:01+01:00", 166, 81.3],
-                           ["2016-05-11T19:02:37+01:00", 166, 81.5],
-                           ["2016-05-18T20:46:04+01:00", 166, 80.6],
-                           ["2016-05-25T19:22:33+01:00", 166, 80.3],
-                           ["2016-06-01T18:41:42+01:00", 166, 80.9]];
+var vitalSigns_patient1 = [["1999-04-20T20:11:23+01:00", 166, 81.9],
+                           ["2002-04-27T18:28:58+01:00", 166, 80.5],
+                           ["2005-05-04T17:59:01+01:00", 166, 82.3],
+                           ["2008-05-11T19:02:37+01:00", 166, 81.5],
+                           ["2010-05-18T20:46:04+01:00", 166, 80.6],
+                           ["2011-05-25T19:22:33+01:00", 166, 80.3],
+                           ["2013-04-27T18:28:58+01:00", 166, 80.5],
+                           ["2014-05-04T17:59:01+01:00", 165, 81.3],
+                           ["2015-01-03T19:02:37+01:00", 165, 80.5],
+                           ["2015-07-18T20:46:04+01:00", 165, 79.6],
+                           ["2016-01-25T19:22:33+01:00", 165, 78.3],
+                           ["2016-06-01T18:41:42+01:00", 165, 76.9]];
 
-var vitalSigns_patient2 = [["2016-04-20T11:16:17+01:00", 166, 62.0],
-                           ["2016-04-27T15:16:22+01:00", 166, 62.4],
-                           ["2016-05-04T19:16:42+01:00", 166, 62.5],
-                           ["2016-05-11T11:16:16+01:00", 166, 61.6],
-                           ["2016-05-18T13:16:45+01:00", 166, 61.2],
-                           ["2016-05-25T17:16:53+01:00", 166, 60.9],
+var vitalSigns_patient2 = [["1999-04-20T11:16:17+01:00", 166, 62.0],
+                           ["2000-04-27T15:16:22+01:00", 166, 62.4],
+                           ["2002-05-04T19:16:42+01:00", 166, 62.5],
+                           ["2004-05-11T11:16:16+01:00", 166, 61.6],
+                           ["2005-05-18T13:16:45+01:00", 166, 61.2],
+                           ["2008-05-25T17:16:53+01:00", 166, 60.9],
+                           ["2010-04-27T15:16:22+01:00", 166, 62.4],
+                           ["2012-05-04T19:16:42+01:00", 166, 62.5],
+                           ["2014-05-11T11:16:16+01:00", 166, 61.6],
+                           ["2015-07-18T13:16:45+01:00", 166, 61.2],
+                           ["2016-01-25T17:16:53+01:00", 165, 60.9],
                            ["2016-06-01T09:16:15+01:00", 166, 61.4]];
 
-var vitalSigns_patient3 = [["2016-04-20T11:16:17+01:00", 159, 58.1],
-                           ["2016-04-27T15:16:22+01:00", 159, 58.0],
-                           ["2016-05-04T19:16:42+01:00", 159, 58.7],
-                           ["2016-05-11T11:16:16+01:00", 159, 58.9],
-                           ["2016-05-18T13:16:45+01:00", 159, 59.1],
-                           ["2016-05-25T17:16:53+01:00", 159, 58.8],
-                           ["2016-06-01T09:16:15+01:00", 159, 58.6]];
+var vitalSigns_patient3 = [["2004-10-20T11:16:17+01:00",  73,  8.4],
+                           ["2005-04-27T15:16:22+01:00",  80, 10.0],
+                           ["2006-05-04T19:16:42+01:00",  88, 12.1],
+                           ["2007-05-11T11:16:16+01:00",  94, 13.5],
+                           ["2009-05-18T13:16:45+01:00",  98, 14.1],
+                           ["2011-05-25T17:16:53+01:00", 130, 30.8],
+                           ["2013-04-27T15:16:22+01:00", 140, 35.0],
+                           ["2014-05-04T19:16:42+01:00", 147, 39.7],
+                           ["2015-01-11T11:16:16+01:00", 152, 46.5],
+                           ["2015-08-18T13:16:45+01:00", 155, 48.1],
+                           ["2016-01-25T17:16:53+01:00", 157, 52.8],
+                           ["2016-06-03T09:16:15+01:00", 159, 54.6]];
                
 /*
 * Generator podatkov za novo stranko. Pri generiranju podatkov 
@@ -58,7 +73,7 @@ var vitalSigns_patient3 = [["2016-04-20T11:16:17+01:00", 159, 58.1],
 * @param stPacienta zaporedna številka pacienta (1, 2 ali 3)
 * @return ehrId generiranega pacienta
 */
-function generirajPodatke(stPacienta) {
+function generirajPodatke(stPacienta, callback) {
     ehrId = "";
     
     if(stPacienta > 3 || stPacienta < 1)
@@ -71,7 +86,11 @@ function generirajPodatke(stPacienta) {
         array = vitalSigns_patient3;
     
     var i = stPacienta-1;
-    addEHRService(patients[i][0], patients[i][1], patients[i][2], patients[i][3], array);
+    ehrId = addEHRService(patients[i][0], patients[i][1], patients[i][2], patients[i][3], array, function(ehrId){
+    	callback(ehrId);
+    });
+    
+    //return ehrId;
 }
 
 var ageTable = [];
@@ -92,7 +111,7 @@ $(document).ready(function() {
 		
 		// Meritve
 		$('#dodajVitalnoEHR').val(ehrId);
-		$('#preberiObstojeciVitalniZnak').val(ehrId);
+		$('#preberiObstojeciEHRzaMeritve').val(ehrId);
 		
 		// branje meritve
 		$('#meritveVitalnihZnakovEHRid').val(ehrId);
@@ -108,19 +127,14 @@ $(document).ready(function() {
    * telesna teža) pri vnosu vitalnih znakov stranke, ko uporabnik 
    * izbere vrednosti iz padajočega menuja ali ročno vnese EHR ID
    */
-	$('#preberiObstojeciVitalniZnak').change(function() {
+	$('#preberiObstojeciEHRzaMeritve').change(function() {
 		$("#dodajMeritveVitalnihZnakovSporocilo").html("");
 		var podatki = $(this).val().split("|");
 		$("#dodajVitalnoEHR").val(podatki[0]);
 		$("#dodajVitalnoDatumInUra").val(podatki[1]);
 		$("#dodajVitalnoTelesnaVisina").val(podatki[2]);
 		$("#dodajVitalnoTelesnaTeza").val(podatki[3]);
-		/*$("#dodajVitalnoTelesnaTemperatura").val(podatki[4]);
-		$("#dodajVitalnoKrvniTlakSistolicni").val(podatki[5]);
-		$("#dodajVitalnoKrvniTlakDiastolicni").val(podatki[6]);
-		$("#dodajVitalnoNasicenostKrviSKisikom").val(podatki[7]);
-		$("#dodajVitalnoMerilec").val(podatki[8]);*/
-		
+
 		// preberi meritve
 		$('#meritveVitalnihZnakovEHRid').val(podatki[0]);
 		preberiMeritveVitalnihZnakov();
@@ -153,7 +167,13 @@ $(document).ready(function() {
 	    e.preventDefault();
 	    
 	    for(var i = 1; i<4; i++){
-	        generirajPodatke(i);
+	        generirajPodatke(i, function(ehrId){
+	        	// ehrId is returned.
+	        	if(ehrId != null) {
+	        		preberiEHRodBolnika();
+	        		preberiMeritveVitalnihZnakov();
+	        	}
+	        });
 	    }
 	});
 	
@@ -180,16 +200,17 @@ function kreirajEHRzaBolnika() {
 	var datumRojstva = $("#kreirajDatumRojstva").val();
 	var spol = $('#kreirajSpol').val();
 	
-	addEHRService(ime, priimek, datumRojstva, spol, null);
+	addEHRService(ime, priimek, datumRojstva, spol, null, function(ehrId){
+		
+	});
 }
 
-function addEHRService(ime, priimek, datumRojstva, spol, array){
+function addEHRService(ime, priimek, datumRojstva, spol, array, callback){
     sessionId = getSessionId();
     
     if (!ime || !priimek || !datumRojstva || !spol || ime.trim().length == 0 ||
       priimek.trim().length == 0 || datumRojstva.trim().length == 0 || spol.length == 0) {
-		$("#kreirajSporocilo").html("<span class='obvestilo label " +
-      "label-warning fade-in'>Prosim vnesite zahtevane podatke!</span>");
+		$("#kreirajSporocilo").html("<span class='obvestilo label label-warning fade-in'>Prosim vnesite zahtevane podatke!</span>");
 	} else {
 	    var gndr = spol === 'M' ? 'MALE' : 'FEMALE';
 	
@@ -232,8 +253,8 @@ function addEHRService(ime, priimek, datumRojstva, spol, array){
 		                    $("#preberiEHRid").val(ehrId);
 		                    
 		                    // Dodaj uporabnike v seznam meritev
-		                    $('#preberiObstojeciVitalniZnak').append('<option value="'+ehrId+'">'+ ime + ' ' + priimek +'</option>');
-		                    $('#preberiObstojeciVitalniZnak').val(ehrId);
+		                    $('#preberiObstojeciEHRzaMeritve').append('<option value="'+ehrId+'">'+ ime + ' ' + priimek +'</option>');
+		                    $('#preberiObstojeciEHRzaMeritve').val(ehrId);
 		                    $('#dodajVitalnoEHR').val(ehrId);
 		                    
 		                    // Dodaj uporabnike v seznam branja meritev
@@ -241,6 +262,8 @@ function addEHRService(ime, priimek, datumRojstva, spol, array){
 		                    
 		                    // Dodaj EHR id v polje meritev
 		                    $('#meritveVitalnihZnakovEHRid').val(ehrId);
+		                    
+		                    callback(ehrId);
 		                }
 		            },
 		            error: function(err) {
@@ -306,14 +329,12 @@ function dodajMeritveVitalnihZnakov() {
 	var datumInUra = $("#dodajVitalnoDatumInUra").val();
 	var telesnaVisina = $("#dodajVitalnoTelesnaVisina").val();
 	var telesnaTeza = $("#dodajVitalnoTelesnaTeza").val();
-	var telesnaTemperatura = $("#dodajVitalnoTelesnaTemperatura").val();
-	var sistolicniKrvniTlak = $("#dodajVitalnoKrvniTlakSistolicni").val();
-	var diastolicniKrvniTlak = $("#dodajVitalnoKrvniTlakDiastolicni").val();
 
-    addMeritveService(ehrId, datumInUra, telesnaVisina, telesnaTeza, telesnaTemperatura, sistolicniKrvniTlak, diastolicniKrvniTlak);
+    addMeritveService(ehrId, datumInUra, telesnaVisina, telesnaTeza);
+    preberiMeritveVitalnihZnakov();
 }
 
-function addMeritveService(ehrId, datumInUra, telesnaVisina, telesnaTeza, telesnaTemperatura, sistolicniKrvniTlak, diastolicniKrvniTlak) {
+function addMeritveService(ehrId, datumInUra, telesnaVisina, telesnaTeza) {
     sessionId = getSessionId();
     
     if (!ehrId || ehrId.trim().length == 0) {
@@ -330,17 +351,12 @@ function addMeritveService(ehrId, datumInUra, telesnaVisina, telesnaTeza, telesn
 		    "ctx/territory": "SI",
 		    "ctx/time": datumInUra,
 		    "vital_signs/height_length/any_event/body_height_length": telesnaVisina,
-		    "vital_signs/body_weight/any_event/body_weight": telesnaTeza,
-		   	"vital_signs/body_temperature/any_event/temperature|magnitude": telesnaTemperatura,
-		    "vital_signs/body_temperature/any_event/temperature|unit": "°C",
-		    "vital_signs/blood_pressure/any_event/systolic": sistolicniKrvniTlak,
-		    "vital_signs/blood_pressure/any_event/diastolic": diastolicniKrvniTlak
+		    "vital_signs/body_weight/any_event/body_weight": telesnaTeza
 		};
 		var parametriZahteve = {
 		    ehrId: ehrId,
 		    templateId: 'Vital Signs',
 		    format: 'FLAT'
-		    //committer: merilec
 		};
 		$.ajax({
 		    url: baseUrl + "/composition?" + $.param(parametriZahteve),
@@ -382,8 +398,12 @@ function preberiMeritveVitalnihZnakov() {
 	    	headers: {"Ehr-Session": sessionId},
 	    	success: function (data) {
 				var party = data.party;
-				$("#rezultatMeritveVitalnihZnakov").html("<br/><span>Pridobivanje podatkov za <b>'" + tip + "'</b> stranke <b>'" + party.firstNames +
-          " " + party.lastNames + "'</b>.</span><br/><br/>");
+				$("#rezultatMeritveVitalnihZnakov").html("<br/><span>Pridobivanje podatkov za <b>'" + 
+														 tip + "'</b> stranke <b>'" + party.firstNames +
+        												 " " + party.lastNames + "'</b>.</span><br/><br/>");
+        		//var filter = dateCalculator()
+        		
+        												 
 				if (tip == "telesna teža") {
 					$.ajax({
 					    url: baseUrl + "/view/" + ehrId + "/" + "weight",
@@ -394,21 +414,19 @@ function preberiMeritveVitalnihZnakov() {
 						    	var results = "<table class='table table-striped table-hover'><tr><th>Datum in ura</th><th class='text-right'>Telesna teža</th></tr>";
 						        for (var i in res) {
 						            var time = res[i].time.split('T');
-						            results += "<tr><td>" + time[0] + "</td><td class='text-right'>" + res[i].weight + " " 	+ res[i].unit + "</td>";
+						            
+						            if(isFilter(res[i].time))
+						            	results += "<tr><td>" + time[0] + "</td><td class='text-right'>" + res[i].weight + " " 	+ res[i].unit + "</td>";
 						        }
 						        
 						        results += "</table>";
 						        $("#rezultatMeritveVitalnihZnakov").append(results);
 					    	} else {
-					    		$("#preberiMeritveVitalnihZnakovSporocilo").html(
-                    "<span class='obvestilo label label-warning fade-in'>" +
-                    "Ni podatkov!</span>");
+					    		$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-warning fade-in'>Ni podatkov!</span>");
 					    	}
 					    },
 					    error: function() {
-					    	$("#preberiMeritveVitalnihZnakovSporocilo").html(
-                  "<span class='obvestilo label label-danger fade-in'>Napaka '" +
-                  JSON.parse(err.responseText).userMessage + "'!");
+					    	$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
 					    }
 					});
 				} else if (tip == "telesna višina") {
@@ -426,23 +444,17 @@ function preberiMeritveVitalnihZnakov() {
 						        results += "</table>";
 						        $("#rezultatMeritveVitalnihZnakov").append(results);
 					    	} else {
-					    		$("#preberiMeritveVitalnihZnakovSporocilo").html(
-                    "<span class='obvestilo label label-warning fade-in'>" +
-                    "Ni podatkov!</span>");
+					    		$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-warning fade-in'>Ni podatkov!</span>");
 					    	}
 					    },
 					    error: function() {
-					    	$("#preberiMeritveVitalnihZnakovSporocilo").html(
-                  "<span class='obvestilo label label-danger fade-in'>Napaka '" +
-                  JSON.parse(err.responseText).userMessage + "'!");
+					    	$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
 					    }
 					});
 				}
 	    	},
 	    	error: function(err) {
-	    		$("#preberiMeritveVitalnihZnakovSporocilo").html(
-            "<span class='obvestilo label label-danger fade-in'>Napaka '" +
-            JSON.parse(err.responseText).userMessage + "'!");
+	    		$("#preberiMeritveVitalnihZnakovSporocilo").html("<span class='obvestilo label label-danger fade-in'>Napaka '" + JSON.parse(err.responseText).userMessage + "'!");
 	    	}
 		});
 	}
@@ -543,4 +555,44 @@ function readAgeTableData(age){
     });
     
     return item;
+}
+
+function getFilter(){
+	return $("#rbTen").hasClass("active") ? "TEN" : $("#rbOne").hasClass("active") ? "ONE" : "ALL";
+}
+
+function dateCalculator(){
+	var filter = getFilter();
+	
+	// Return today's date and time
+	var currentTime = new Date()
+	// returns the month (from 0 to 11)
+	var month = currentTime.getMonth() + 1
+	// returns the day of the month (from 1 to 31)
+	var day = currentTime.getDate()
+	// returns the year (four digits)
+	var year = currentTime.getFullYear()
+	
+	var date = new Date(year,month,day);
+	
+	if(filter === "ONE")
+		return new Date((year-1), month, day);
+	if(filter === "TEN")
+		return new Date((year-10), month, day);
+	
+	return null;
+}
+
+function isFilter(fDate) {
+	var startDate = dateCalculator();
+	if (startDate==null)
+		return true;
+	
+	var todayAtMidn = new Date(fDate);
+	
+	if (todayAtMidn.getTime() >= startDate.getTime()) {
+    	return true;
+	}
+	
+	return false;
 }
