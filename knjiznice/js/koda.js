@@ -435,7 +435,8 @@ function preberiMeritveVitalnihZnakov() {
 						    	var results = "<table class='table table-striped table-hover'><tr><th>Datum in ura</th> <th class='text-right'>Telesna višina</th></tr>";
 						        for (var i in res) {
 						            var time = res[i].time.split('T');
-						            results += "<tr><td>" + time[0] + "</td><td class='text-right'>" + res[i].height + " " + res[i].unit + "</td>";
+						            if(isFilter(res[i].time))
+						            	results += "<tr><td>" + time[0] + "</td><td class='text-right'>" + res[i].height + " " + res[i].unit + "</td>";
 						        }
 						        results += "</table>";
 						        $("#rezultatMeritveVitalnihZnakov").append(results);
